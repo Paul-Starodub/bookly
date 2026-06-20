@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Header
+from fastapi import FastAPI, Header, status
 from pydantic import BaseModel
 
 
@@ -40,7 +40,7 @@ async def create_book(book_data: BookCreateModel) -> dict:
     return {"message": f"Book created: {book_data.title} by {book_data.author}"}
 
 
-@app.get("/get_headers/")
+@app.get("/get_headers/", status_code=status.HTTP_200_OK)
 async def get_headers(
     accept: str = Header(None),
     content_type: str = Header(None),
