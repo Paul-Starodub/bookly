@@ -24,5 +24,5 @@ async def read_root() -> dict:
 #     return {"message": f"Hello {name}, age: {age}"}
 
 @app.get("/greet/")
-async def greet_name(age: int, name: str | None = "User") -> dict:
+async def greet_name(age: int = 0, name: str | None = "User") -> dict:
     return {"message": f"Hello {name}, age: {age}"}
