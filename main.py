@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Header
 from pydantic import BaseModel
 
 
@@ -38,3 +38,18 @@ async def greet_name(age: int = 0, name: str | None = "User") -> dict:
 @app.post("/create_book/")
 async def create_book(book_data: BookCreateModel) -> dict:
     return {"message": f"Book created: {book_data.title} by {book_data.author}"}
+
+
+@app.get("/get_headers/")
+async def get_headers(
+    accept: str = Header(None),
+    content_type: str = Header(None),
+    user_agent: str = Header(None),
+    host: str = Header(None),
+) -> dict:
+    request_headers = {}
+    request_headers["Accept"] = accept
+    request_headers["Content-Type"] = content_type
+    request_headers["User-Agent"] = user_agent
+    request_headers["Host"] = host
+    return request_headers
